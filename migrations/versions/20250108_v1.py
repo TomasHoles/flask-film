@@ -78,6 +78,14 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.user_id'], ),
     sa.PrimaryKeyConstraint('user_id', 'role_id')
     )
+    op.create_table('film',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('nazev', sa.Text(), nullable=False),
+    sa.Column('rok', sa.Integer(), nullable=False),
+    sa.Column('reziser', sa.Text(), nullable=False),
+    sa.Column('hodnoceni', sa.Integer(), nullable=False),
+    sa.PrimaryKeyConstraint('id')
+    )
     # ### end Alembic commands ###
 
 

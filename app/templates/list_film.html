@@ -1,0 +1,30 @@
+{% from "macros/fields.html" import render_input_field, render_password_field, render_checkbox_field, render_submit %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Název</th>
+                <th>Rok</th>
+                <th>Režisér</th>
+                <th>Hodnocení</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for film in film %}
+            <tr>
+                <td>{{ film.id }}</td>
+                <td>{{ film.nazev }}</td>
+                <td>{{ film.rok }}</td>
+                <td>{{ film.reziser }}</td>
+                <td>{{ film.hodnoceni }}</td>
+                <td><a href="/del_film/{{ film.id }}" >smaz</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+{% endblock %}

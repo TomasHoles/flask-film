@@ -1,0 +1,16 @@
+{% from "macros/fields.html" import render_input_field, render_submit %}
+
+{% block title %}Film{% endblock %}
+
+{% block content %}
+    <h3>Film</h3>
+    <form method="POST" id='film-form'>
+        {{ form.hidden_tag() }}
+        {{ render_input_field(form.nazev) }}
+        {{ render_input_field(form.rok) }}
+        {{ render_input_field(form.reziser) }}
+        {{ render_input_field(form.hodnoceni) }}
+        {{ render_submit() }}
+    </form>
+    <br>
+{% endblock %}

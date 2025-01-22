@@ -13,7 +13,7 @@ from .views import (
     account_management_views,
     static_views,
 )
-from .models import User,Uzivatele,Kniha,SPZ
+from .models import User,Uzivatele,Kniha,SPZ,Film
 
 bp = Blueprint('routes', __name__)
 
@@ -102,6 +102,36 @@ def add_spz():
         db.commit()
         return "SPZ submitted"
     return render_template("spz.html", form=form)
+
+class FilmForm(FlaskForm):
+    nazev = StringField('Nazev', validators=[InputRequired(message="Nazev is required"), Length(max=255)])
+    rok = StringField('Rok', validators=[InputRequired(message="Rok is required"), Length(max=4)])
+    reziser = StringField('Reziser', validators=[InputRequired(message="Reziser is required"), Length(max=255)])
+    hodnoceni = StringField('Hodnoceni', validators=[InputRequired(message="Hodnoceni is required"), Length(max=3)])
+
+@bp.route("/add_film", methods=["GET", "POST"])
+def add_film():
+    form = FilmForm()
+    if form.validate_on_submit():
+        new_film = Film(nazev=form.nazev.data, rok=form.rok.data, reziser=form.reziser.data, hodnoceni=form.hodnoceni.data)
+        db.add(new_film)
+        db.commit()
+        return "Film submitted"
+    return render_template("film.html", form=form)
+
+@bp.route("/list_film", methods=["GET"])
+def list_films():
+    film = Film.query.all()
+    return render_template("list_film.html", film=film)
+
+@bp.route("/del_film/<int:id>", methods=["GET", "POST"])
+def del_film(id):
+    film = Film.query.get(id)
+    if film:
+        db.delete(film)
+        db.commit()
+        return f"Film with id {id} has been deleted"
+    return f"Film with id {id} not found", 404
 
 @bp.before_app_request
 def before_request():

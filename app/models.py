@@ -106,3 +106,14 @@ class SPZ(Base):
 
     def __repr__(self):
         return f"<SPZ {self.spz}>"
+    
+class Film(Base):
+    __tablename__ = "film"
+    id = Column(Integer, primary_key=True)
+    nazev = Column(Text, nullable=False)
+    rok = Column(Integer, nullable=False)
+    reziser = Column(Text, nullable=False)
+    hodnoceni = Column(Integer, nullable=False)
+
+    def __repr__(self):
+        return f"<Film {self.nazev} ({self.rok})>"
